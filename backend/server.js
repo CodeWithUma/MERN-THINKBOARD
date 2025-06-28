@@ -1,6 +1,7 @@
 import express from 'express';
 
 const app = express();
+app.use(express.json());
 
 // What is an Endpoint?
 // An endpoint is a combination of URL + HTTP method (GET, POST, etc.) 
