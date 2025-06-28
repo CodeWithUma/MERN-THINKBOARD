@@ -3,6 +3,7 @@ import notesRoutes from './routes/notesRoutes.js';
 
 const app = express();
 
+app.use(express.json());
 // Whenever we want to use a specific route, we can use the app.use method
 // and specify the base path for that route.
 app.use('/api/notes', notesRoutes);
