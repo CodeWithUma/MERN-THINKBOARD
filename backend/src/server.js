@@ -14,7 +14,10 @@ const PORT = process.env.PORT || 5001;
 // This function will connect to the MongoDB database using Mongoose.
 connectDB();
 
+// Middleware to parse JSON bodies
+// This middleware will parse incoming requests with JSON payloads.
 app.use(express.json());
+
 // Whenever we want to use a specific route, we can use the app.use method
 // and specify the base path for that route.
 app.use('/api/notes', notesRoutes);
