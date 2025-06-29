@@ -10,7 +10,7 @@ const router = express.Router();
 // that lets the client/user interact with the specific resource.
 
 router.get('/', getAllNotes);
-router.get("/:id", getNoteById);
+router.get('/:id', getNoteById);
 router.post('/', createNote);
 router.put('/:id', updateNote);
 router.delete('/:id', deleteNote);
