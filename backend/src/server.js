@@ -2,6 +2,7 @@ import express from 'express';
 import notesRoutes from './routes/notesRoutes.js';
 import { connectDB } from './config/db.js';
 import dotenv from "dotenv";
+import rateLimiter from "./middleware/rateLimiter.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -10,18 +11,30 @@ const app = express();
 
 const PORT = process.env.PORT || 5001;
 
-// Connect to the database
-// This function will connect to the MongoDB database using Mongoose.
-connectDB();
-
 // Middleware to parse JSON bodies
 // This middleware will parse incoming requests with JSON payloads.
-app.use(express.json());
+app.use(express.json());    // this middleware will parse JSON bodies: req.body
+app.use(rateLimiter);
+
+// our simple custom middleware
+// app.use((req, res, next) => {
+//     console.log(`Req method is ${req.method} & Req URL is ${req.url}`);
+//     next();
+// });
 
 // Whenever we want to use a specific route, we can use the app.use method
 // and specify the base path for that route.
 app.use('/api/notes', notesRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+
+// For Production Grade Applications this syntax is used to first connect to the database and then start the server.
+// This ensures that the server only starts after a successful connection to the database.
+// -----------------------------------------------------------------------------------------------------------------
+// Connect to the database
+// This function will connect to the MongoDB database using Mongoose.
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("Server started on PORT:", PORT);
+  });
 });
+
