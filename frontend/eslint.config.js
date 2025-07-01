@@ -14,6 +14,12 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
     languageOptions: {
+      /*
+      Copilot Suggestion:
+      For consistency, consider aligning the ecmaVersion in languageOptions with the parserOptions
+      (currently set to 'latest') to avoid potential discrepancies in syntax support.
+      */
+      // ecmaVersion: 'latest',
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
